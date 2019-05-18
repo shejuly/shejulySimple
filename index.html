@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<title>学习简化版</title>
+	<style type="text/css" rel="stylesheet">
+		body{
+			padding: 100px;
+		}
+		#enterClear{
+			position: relative;
+			top: 2px;
+		}
+		.mt20{
+			margin-top: 20px !important;
+		}
+		.exTimes{
+			display:block;
+			font-size: 14px;
+		}
+		.til5Blue{
+			color:#1821e3;
+			font-weight:bold;
+			font-size: 16px;
+		}
+		.til5BlueBtn{
+			background-color: #1821e3;
+			border:1px solid #1821e3;
+		}
+		.til10Purple{
+			color:#74197d;
+			font-weight:bold;
+			font-size: 20px;
+		}
+		.til10PurpleBtn{
+			background-color: #74197d;
+			border:1px solid #74197d;
+		}
+		.til15Red{
+			color:#f01f1f;
+			font-weight:bold;
+			font-size: 30px;
+		}
+		.til15RedBtn{
+			background-color: #f01f1f;
+			border:1px solid #f01f1f;
+		}
+		.til20Black{
+			color:#000;
+			font-weight:bold;
+			font-size: 36px;
+		}
+		.til20BlackBtn{
+			background-color: #000;
+			border:1px solid #000;
+		}
+		.sooner label{
+			width:100%;
+			line-height: 30px;
+			padding-left: 10px;
+		}
+		.sooner input {
+			position: relative;
+			top: 2px;
+			margin-right: 2px;
+		}
+		.sooner label:hover{
+			background-color: #5d99da;
+			color: #fff;
+		}
+		textarea{
+			width: 100%;
+			height: 500px;
+			resize: none;
+		}
+	</style>
+</head>
+<body>
+<div class="row mtop">
+	<div class="col-md-5 col-sm-12">
+		<textarea id="lefta" class="lefta"></textarea>
+	</div>
+	<div class="col-md-5 col-sm-12">
+		<textarea id="righta" class="righta"></textarea>
+	</div>
+	<div class="btnBar col-md-2 col-sm-12">
+		<b class="exTimes mt20">0</b>
+		<button id="yinbtn" class="btn btn-info btn-block mt20">隐藏</button>
+		<button id="enterClear" class="btn btn-info btn-block mt20">
+			计数
+		</button>
+		<button class="btn btn-warning btn-block mt20" id="reNormal">恢复</button>
+		<h3>计数快捷键：</h3>
+		<div class="sooner">
+			<label for="ctrlEnter">
+				<input id="ctrlEnter" type="radio" value=1 name="soonType" checked>
+				ctrl+Enter
+			</label>
+		</div>
+		<div class="sooner">
+			<label for="enter">
+				<input id="enter" type="radio" value=2 name="soonType" >
+				Enter
+			</label>
+		</div>
+	</div>
+	<div class=" col-md-12 col-sm-12 mt20">
+		<div class="well">
+			【使用说明】<br/>
+			在左侧粘贴你想要记住的东西，在右侧开始默写。不会了就看一眼左边。也可以点击”隐藏“完全默写。写完一遍可以ctrl+回车，或点击“计数”按钮清空并计数。如果记忆的内容比较短，可以切换成enter键计数。随着默写次数增长按钮颜色、字号、字颜色都会改变。点击“恢复”按钮可以恢复到改变之前。
+		</div>
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+  var num=0;
+  var x="";
+  var rightA=$("#righta");
+  var textArea=$("textarea");
+  var yinBtn=$("#yinbtn");
+  var buttons=$(".btn-info");
+  var times=$("b.exTimes");
+  var reNormal=$("#reNormal");
+  var enterClear=$("#enterClear");
+  //【显示和隐藏】
+  yinBtn.unbind("click").click(function(){
+    var leftA=$("#lefta");
+    if(yinBtn.html()=="显示"){
+      leftA.val(x);
+      yinBtn.html("隐藏");
+    }else{
+      x=leftA.val();
+      leftA.val("不许看( ＞ω＜) ");
+      yinBtn.html("显示");
+    }
+  });
+  //【tab空格】
+  textArea.on('keydown',function(e){
+    if(e.keyCode == 9){
+      e.preventDefault();
+      var indent = '    ';
+      var start = this.selectionStart;
+      var end = this.selectionEnd;
+      var selected = window.getSelection().toString();
+      selected = indent + selected.replace(/\n/g,'\n'+indent);
+      this.value = this.value.substring(0,start) + selected + this.value.substring(end);
+      this.setSelectionRange(start+indent.length,start+selected.length);
+    }
+  });
+  //【点击计数按钮】
+  enterClear.click(function(){
+    rightA.val("");
+    num+=1;
+    times.html(num+"连击！");
+    switch (num){
+      case 5:
+        textArea.addClass("til5Blue");
+        times.addClass("til5Blue");
+        buttons.addClass("til5BlueBtn");
+        break;
+      case 10:
+        textArea.removeClass("til5Blue").addClass("til10Purple");
+        times.removeClass("til5Blue").addClass("til10Purple");
+        buttons.removeClass("til5BlueBtn").addClass("til10PurpleBtn");
+        break;
+      case 15:
+        textArea.removeClass("til10Purple").addClass("til15Red");
+        times.removeClass("til10Purple").addClass("til15Red");
+        buttons.removeClass("til10PurpleBtn").addClass("til15RedBtn");
+        break;
+      case 20:
+        textArea.removeClass("til15Red").addClass("til20Black");
+        times.removeClass("til15Red").addClass("til20Black");
+        buttons.removeClass("til15RedBtn").addClass("til20BlackBtn");
+        break;
+    }
+  });
+  //【计数快捷键】
+  rightA.on('keypress',function(e){
+    var soonVal = $("input[name='soonType']:checked").val();
+    if(soonVal==1){if(e.ctrlKey && e.which == 13 || e.which == 10){
+      enterClear.click();
+    }}else if(soonVal==2){if(e.which == 13){
+      e.preventDefault();
+      enterClear.click();
+    }
+    }
+  });
+
+  //【恢复正常按钮】
+  reNormal.click(function(){
+    textArea.removeClass("til5Blue").removeClass("til10Purple").removeClass("til15Red").removeClass("til20Black");
+    times.removeClass("til5Blue").removeClass("til10Purple").removeClass("til15Red").removeClass("til20Black");
+    buttons.removeClass("til5BlueBtn").removeClass("til10PurpleBtn").removeClass("til15RedBtn").removeClass("til20BlackBtn");
+    num=0;
+    times.html(num);
+  });
+</script>

@@ -8,10 +8,24 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<title>学习简化版</title>
+	<title>对忆-推倒多米诺</title>
 	<style type="text/css" rel="stylesheet">
 		body{
-			padding: 100px;
+			padding: 0 100px 20px;
+			background: #5c92d2;
+		}
+		header.mainHeader{
+			height: 100px;
+			font-size: 32px;
+			display: flex;
+			font-weight: bold;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+		}
+		header.mainHeader .fuTitle{
+			font-size: 16px;
+			font-weight: normal;
 		}
 		#enterClear{
 			position: relative;
@@ -79,9 +93,20 @@
 			height: 500px;
 			resize: none;
 		}
+		.cps{
+			text-align: right;
+		}
+		.cps a{
+			color: #fff;
+			text-decoration: underline;
+		}
 	</style>
 </head>
 <body>
+<header class="mainHeader">
+	对 忆
+	<span class="fuTitle">　--对比记忆工具</span>
+</header>
 <div class="row mtop">
 	<div class="col-md-5 col-sm-12">
 		<textarea id="lefta" class="lefta"></textarea>
@@ -116,6 +141,9 @@
 			在左侧粘贴你想要记住的东西，在右侧开始默写。不会了就看一眼左边。也可以点击”隐藏“完全默写。写完一遍可以ctrl+回车，或点击“计数”按钮清空并计数。如果记忆的内容比较短，可以切换成enter键计数。随着默写次数增长按钮颜色、字号、字颜色都会改变。点击“恢复”按钮可以恢复到改变之前。
 		</div>
 	</div>
+</div>
+<div class="cps">
+	<a href="https://mp.weixin.qq.com/s/atP7d9Rqwj9dLP5ISNAH7g">推倒多米诺-前端入门教程</a>
 </div>
 </body>
 </html>
